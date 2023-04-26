@@ -1,6 +1,5 @@
 import speech_recognition as sr
 import openai
-import json
 from gtts import gTTS
 from playsound import playsound
 import os
@@ -19,9 +18,14 @@ class assistente:
         with sr.Microphone() as source:
             recognizer_istance.adjust_for_ambient_noise(source, duration=1)
             print("calibrato correttamente")
-            audio = recognizer_istance.listen(source)
-        
-        self.text = recognizer_istance.recognize_google(audio, language="it-IT")
+            while True: 
+                audio = recognizer_istance.listen(source)
+                try: 
+                    self.text = recognizer_istance.recognize_google(audio, language="it-IT")
+                    break
+                except: 
+                    print("testo non riconosciuto, riprova......")
+                    continue
         print("testo riconosciuto: " + self.text)  
         print("INVIO A CHATGPT.....")
 
@@ -42,7 +46,10 @@ class assistente:
         cwd = os.getcwd()
         file = "audio.mp3"
         indirizzo = os.path.join(cwd, file)
-        os.remove(indirizzo)
+        try:            
+            os.remove(indirizzo)      #se il file è stato creato per la prima volta genera un'eccezione e quindi deve continuare
+        except:
+            pass
         tts = gTTS(text=self.messaggio, lang="it")
         tts.save("audio.mp3")
         playsound("audio.mp3")
