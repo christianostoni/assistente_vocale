@@ -2,8 +2,8 @@ from jarvis import assistente
 import json
 from time import sleep
 
-api_key = "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"
-
+api_key = "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"
+#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
 assistente_istance = assistente(api_key)
 
 while True: 
