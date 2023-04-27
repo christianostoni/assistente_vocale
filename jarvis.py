@@ -1,6 +1,5 @@
 import speech_recognition as sr
 import openai
-import json
 from gtts import gTTS
 from playsound import playsound
 import os
@@ -14,16 +13,22 @@ class assistente:
         self.messaggio = messaggio
 
     def riconoscimento(self):
+        print("cosa vuoi chiedere a Jarvis?")
         recognizer_istance = sr.Recognizer()
         with sr.Microphone() as source:
-            print("cosa vuoi chiedere a jarvis?")
-            recognizer_istance.adjust_for_ambient_noise(source)
-            audio = recognizer_istance.listen(source)
-            
-        
-        self.text = recognizer_istance.recognize_google(audio, language="it-IT")
+            recognizer_istance.adjust_for_ambient_noise(source, duration=1)
+            print("calibrato correttamente")
+            while True: 
+                audio = recognizer_istance.listen(source)
+                try: 
+                    self.text = recognizer_istance.recognize_google(audio, language="it-IT")
+                    break
+                except: 
+                    print("testo non riconosciuto, riprova......")
+                    continue
         print("testo riconosciuto: " + self.text)  
-        print("invio a chatGpt......")
+        print("INVIO A CHATGPT.....")
+
     def chatGpt(self):
         openai.api_key= self.api_key
         response = openai.ChatCompletion.create(
@@ -38,6 +43,13 @@ class assistente:
         self.riconosciuto = True
 
     def text_to_speech(self):
+        cwd = os.getcwd()
+        file = "audio.mp3"
+        indirizzo = os.path.join(cwd, file)
+        try:            
+            os.remove(indirizzo)      #se il file è stato creato per la prima volta genera un'eccezione e quindi deve continuare
+        except:
+            pass
         tts = gTTS(text=self.messaggio, lang="it")
         cwd = os.getcwd()
         file = "audio.mp3"

@@ -2,9 +2,7 @@ from jarvis import assistente
 import json
 from time import sleep
 
-with open("secrets.json") as file: 
-        secrets = json.load(file)
-        api_key = secrets["api_key"]
+api_key = "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"
 
 assistente_istance = assistente(api_key)
 
