@@ -51,9 +51,5 @@ class assistente:
         except:
             pass
         tts = gTTS(text=self.messaggio, lang="it")
-        cwd = os.getcwd()
-        file = "audio.mp3"
-        indirizzo = os.path.join(cwd, file)
-        os.remove(indirizzo)
         tts.save("audio.mp3")
         playsound("audio.mp3")
