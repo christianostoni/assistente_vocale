@@ -10,7 +10,7 @@ Per provare Jarvis, è possibile scaricare la release, nell'apposita sezione di 
 
 ![immagine](https://user-images.githubusercontent.com/86129489/234898138-d4ea7de1-fa1b-4b56-b7e4-ce2e22ddf2a3.png)
 
-Per visionare, testare e modificare il codice è necessario aver installato l'interprete python e procedere in questo modo: 
+Per visionare, testare e modificare il codice è necessario innanzitutto richiedere l'api key per [accedere a chatGpt](https://platform.openai.com/account/api-keys). Dopo si deve installare l'interprete python e procedere in questo modo: 
 1. Spostarsi nella cartella nella quale si vuole copiare il progetto
 2. Aprire il terminale nella cartella da utilizzare
 3. Clonare la repository con il seguente comando: `git clone https://github.com/christianostoni/assistente_vocale` 
